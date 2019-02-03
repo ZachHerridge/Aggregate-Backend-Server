@@ -21,7 +21,7 @@ public class PostAPI {
         return posts.db().query("FOR p IN posts\n" +
                 "SORT p.time DESC\n" +
                 "LIMIT 10\n" +
-                "RETURN p", Post.class).asListRemaining();
+                "return MERGE(p, {\"displayName\": DOCUMENT(\"users\", p.userId).displayName})", Post.class).asListRemaining();
     }
 
     private static List<Post> getBestPosts(String userId) {
