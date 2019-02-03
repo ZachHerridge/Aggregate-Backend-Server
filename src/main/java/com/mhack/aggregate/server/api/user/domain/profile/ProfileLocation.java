@@ -15,7 +15,7 @@ public class ProfileLocation {
 
     private Country country;
     private State state;
-    private HashMap<State, Point> coordinatesMap;
+    private HashMap<State, Point> coordinatesMap = new HashMap<>();
 
     public ProfileLocation() {
         country = Country.USA;

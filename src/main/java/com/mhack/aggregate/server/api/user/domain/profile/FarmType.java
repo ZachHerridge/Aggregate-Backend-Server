@@ -17,6 +17,8 @@ public class FarmType {
         this.type = type;
     }
 
+    public FarmType() {
+    }
 
     public Type getType() {
         return type;

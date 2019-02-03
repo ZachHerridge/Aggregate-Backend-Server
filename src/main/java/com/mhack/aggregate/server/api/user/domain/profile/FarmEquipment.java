@@ -17,6 +17,9 @@ public class FarmEquipment{
         this.equipment = equipment;
     }
 
+    public FarmEquipment() {
+    }
+
     public Equipment getEquipment() {
         return equipment;
     }
