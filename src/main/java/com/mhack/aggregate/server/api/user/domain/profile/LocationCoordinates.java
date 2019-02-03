@@ -1,6 +1,6 @@
 package com.mhack.aggregate.server.api.user.domain.profile;
 
-class LocationCoordinates {
+public class LocationCoordinates {
     double x;
     double y;
 

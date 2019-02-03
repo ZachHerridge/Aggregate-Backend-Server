@@ -1,6 +1,6 @@
 package com.mhack.aggregate.server.api.user.domain.profile;
 
-class FarmEquipment{
+public class FarmEquipment{
     enum Equipment {
         Tractor,
         Plow,

@@ -1,6 +1,6 @@
 package com.mhack.aggregate.server.api.user.domain.profile;
 
-class FarmSize {
+public class FarmSize {
 
     int size;
 

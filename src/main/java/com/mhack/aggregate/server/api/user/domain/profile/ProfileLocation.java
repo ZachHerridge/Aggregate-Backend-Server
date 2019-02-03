@@ -3,7 +3,7 @@ package com.mhack.aggregate.server.api.user.domain.profile;
 import java.awt.*;
 import java.util.HashMap;
 
-class ProfileLocation {
+public class ProfileLocation {
 
     enum Country {
         USA

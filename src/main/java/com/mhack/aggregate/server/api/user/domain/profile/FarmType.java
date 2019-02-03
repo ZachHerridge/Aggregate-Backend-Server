@@ -1,6 +1,6 @@
 package com.mhack.aggregate.server.api.user.domain.profile;
 
-class FarmType {
+public class FarmType {
     // Need more types obviously, but this is good for a start
     enum Type {
         Dairy,
