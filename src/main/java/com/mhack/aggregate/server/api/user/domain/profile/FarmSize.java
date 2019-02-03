@@ -10,11 +10,6 @@ public class FarmSize {
         sizeBracket = 0;
     }
 
-    public FarmSize(int size){
-        this.size = size;
-        setSizeBracket(size);
-    }
-
     public int getSize() {
         return size;
     }

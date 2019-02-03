@@ -11,7 +11,10 @@ public class JwtUtil {
 
     public static String decodeToId(String jwt) {
         try {
-            return JWT.decode(jwt).getClaim("userId").asString();
+            if (jwt == null || jwt.trim().isEmpty()) return null;
+            String userId = JWT.decode(jwt).getClaim("userId").asString();
+            if (userId == null || userId.trim().isEmpty()) return null;
+            return userId;
         } catch (Throwable e){
             return null;
         }

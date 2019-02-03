@@ -2,14 +2,16 @@ package com.mhack.aggregate.server.api.post;
 
 import com.arangodb.ArangoCollection;
 import com.google.gson.Gson;
+import com.mhack.aggregate.server.algorithm.PostScore;
 import com.mhack.aggregate.server.api.post.domain.Comment;
 import com.mhack.aggregate.server.api.post.domain.Post;
+import com.mhack.aggregate.server.api.user.UserAPI;
+import com.mhack.aggregate.server.api.user.domain.User;
 import com.mhack.aggregate.server.database.arango.DBArango;
 import com.mhack.aggregate.server.jwt.JwtUtil;
 import spark.Spark;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PostAPI {
 
@@ -25,10 +27,13 @@ public class PostAPI {
     }
 
     private static List<Post> getBestPosts(String userId) {
-        return posts.db().query("FOR p IN posts\n" +
-                "SORT p.time DESC\n" +
-                "LIMIT 10\n" +
-                "return MERGE(p, {\"displayName\": DOCUMENT(\"users\", p.userId).displayName})", Post.class).asListRemaining();
+        User userById = UserAPI.getUserById(userId);
+        Map<String, User> cache = new HashMap<>();
+        List<Post> allPosts = posts.db().query(
+                "FOR x IN posts\n" +
+                        "RETURN MERGE(x, {\"displayName\": DOCUMENT(\"users\", x.userId).displayName})", Post.class).asListRemaining();
+        allPosts.sort((o1, o2) -> (int) (PostScore.calculatePostScore(userById, o2, cache) - PostScore.calculatePostScore(userById, o1, cache)));
+        return allPosts;
     }
 
     public static void init() {

@@ -1,11 +1,12 @@
 package com.mhack.aggregate.server.algorithm;
 
 import com.mhack.aggregate.server.api.post.domain.Post;
+import com.mhack.aggregate.server.api.user.UserAPI;
 import com.mhack.aggregate.server.api.user.domain.User;
 import com.mhack.aggregate.server.api.user.domain.profile.FarmEquipment;
 import com.mhack.aggregate.server.api.user.domain.profile.FarmType;
 
-import static com.mhack.aggregate.server.api.user.UserAPI.getUserById;
+import java.util.Map;
 
 public class PostScore {
 
@@ -15,16 +16,16 @@ public class PostScore {
     private static double locationScore = 2.0;
     private static double farmEquipmentScore = 2.0;
 
-    public static double calculatePostScore(User user, Post post) {
-        User poster = getUserById(post.getUserId());
-        timeScore = calculateTimeScore(post);
-        farmTypeScore = calculateTypeScore(user, poster);
-        farmSizeScore = calculateSizeScore(user, poster);
-        locationScore = calculateLocationScore(user, poster);
-        farmEquipmentScore = caclulateFarmEquipmentScore(user, poster);
-
-        double total = timeScore + farmTypeScore + farmSizeScore + locationScore + farmEquipmentScore;
-        return total;
+    public static double calculatePostScore(User user, Post post, Map<String, User> cache) {
+        try {
+            User poster = cache.computeIfAbsent(post.getUserId(), UserAPI::getUserById);
+            int diff = Math.abs(user.getProfile().getFarmSize().getSize() - poster.getProfile().getFarmSize().getSize());
+            return Math.pow(1000 -  diff, 5);
+        }
+        catch (Throwable e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     private static double calculateTimeScore(Post post) {
