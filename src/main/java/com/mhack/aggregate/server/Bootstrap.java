@@ -8,7 +8,7 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         DBArango.init();
-        UserAPI.init();
         PostAPI.init();
+        UserAPI.init();
     }
 }

@@ -66,7 +66,7 @@ public class PostAPI {
             return "FAIL";
         });
 
-        Spark.put("/posts/best", (req, res) -> {
+        Spark.put("/posts", (req, res) -> {
             String userId = JwtUtil.decodeToId(req.headers("jwt"));
             if (userId != null) {
                 Post post = gson.fromJson(req.body(), Post.class);
@@ -77,12 +77,18 @@ public class PostAPI {
             return "FAIL";
         });
 
-        Spark.get("/posts/best", (req, res) -> {
-            String userId = JwtUtil.decodeToId(req.headers("jwt"));
-            if (userId != null) {
-                return gson.toJson(getBestPosts(userId));
+        Spark.get("/p/best", (req, res) -> {
+            try{
+                String userId = JwtUtil.decodeToId(req.headers("jwt"));
+                if (userId != null) {
+                    return gson.toJson(getBestPosts(userId));
+                }
+                return gson.toJson(getBestPosts());
             }
-            return getBestPosts();
+            catch (Throwable e){
+                e.printStackTrace();
+            }
+            return "FAIL";
         });
     }
 }

@@ -15,6 +15,9 @@ public class Post {
         this.body = body;
     }
 
+    public Post() {
+    }
+
     public Post setUserId(String userId) {
         this.userId = userId;
         return this;
