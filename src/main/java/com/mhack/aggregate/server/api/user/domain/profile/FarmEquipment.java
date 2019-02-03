@@ -1,6 +1,6 @@
-package com.mhack.aggregate.server.api.user.extra_variables;
+package com.mhack.aggregate.server.api.user.domain.profile;
 
-public class FarmEquipment {
+class FarmEquipment{
     enum Equipment {
         Tractor,
         Plow,
@@ -11,7 +11,7 @@ public class FarmEquipment {
         Harvester
     }
 
-    private Equipment equipment;
+    Equipment equipment;
 
     public FarmEquipment(Equipment equipment) {
         this.equipment = equipment;

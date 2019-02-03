@@ -3,6 +3,7 @@ package com.mhack.aggregate.server.api.user;
 import com.arangodb.ArangoCollection;
 import com.arangodb.ArangoCursor;
 import com.google.gson.Gson;
+import com.mhack.aggregate.server.api.user.domain.profile.Profile;
 import com.mhack.aggregate.server.api.user.domain.User;
 import com.mhack.aggregate.server.database.arango.DBArango;
 import com.mhack.aggregate.server.jwt.JwtUtil;
@@ -30,18 +31,34 @@ public class UserAPI {
     }
 
     public static void init() {
-        Spark.get("/user/profile", (req, res) -> {
+        Spark.put("/user/profile", (req, res) -> {
             try {
                 String userId = JwtUtil.decodeToId(req.headers("jwt"));
                 if (userId != null){
-                    User document = getUserById(userId);
-                    return gson.toJson(document);
+                    User userById = getUserById(userId);
+                    userById.setProfile(gson.fromJson(req.body(), Profile.class));
+                    users.updateDocument(userId, userById);
+                    return "OK";
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
                 throw e;
             }
-            return null;
+            return "FAIL";
+        });
+
+        Spark.get("/user/profile", (req, res) -> {
+            try {
+                String userId = JwtUtil.decodeToId(req.headers("jwt"));
+                if (userId != null){
+                    User document = getUserById(userId);
+                    return gson.toJson(document.getProfile());
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                throw e;
+            }
+            return "FAIL";
         });
 
         Spark.get("/login", (req, res) -> {
@@ -49,7 +66,7 @@ public class UserAPI {
             String password = req.queryParams("password");
             User userByDisplayName = getUserByDisplayName(displayName);
             if (userByDisplayName != null && userByDisplayName.getPassword().equals(password)) {
-                return "OK " + JwtUtil.create(userByDisplayName);
+                return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.getKey();
             }
             return "FAIL";
         });
