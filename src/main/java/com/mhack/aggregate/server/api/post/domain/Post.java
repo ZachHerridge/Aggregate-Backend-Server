@@ -8,6 +8,7 @@ public class Post {
     private String body;
     private long time = System.currentTimeMillis();
     private Comment[] comments;
+    private String displayName;
 
     public Post(String title, String body) {
 
