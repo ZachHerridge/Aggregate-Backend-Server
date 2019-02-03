@@ -6,7 +6,6 @@ import com.mhack.aggregate.server.api.post.domain.Comment;
 import com.mhack.aggregate.server.api.post.domain.Post;
 import com.mhack.aggregate.server.database.arango.DBArango;
 import com.mhack.aggregate.server.jwt.JwtUtil;
-import javafx.geometry.Pos;
 import spark.Spark;
 
 import java.util.Collections;
