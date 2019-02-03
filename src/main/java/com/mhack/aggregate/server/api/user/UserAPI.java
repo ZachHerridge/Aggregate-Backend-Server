@@ -47,6 +47,21 @@ public class UserAPI {
             return "FAIL";
         });
 
+
+        Spark.get("/register", (req, res) -> {
+            try {
+                String displayName = req.queryParams("displayName");
+                if (getUserByDisplayName(displayName) == null){
+                    users.insertDocument(new User(displayName, req.queryParams("password")));
+                    return "OK";
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                throw e;
+            }
+            return "FAIL";
+        });
+
         Spark.get("/user", (req, res) -> {
             try {
                 String userId = JwtUtil.decodeToId(req.headers("jwt"));
