@@ -35,7 +35,7 @@ public class PostAPI {
     public static void init() {
         Spark.get("/posts/:postId", (req, res) -> {
             return gson.toJson(comments.db().query("LET post = FIRST((\n" +
-                    "    FOR p IN posts\n" +
+                    "FOR p IN posts\n" +
                     "    FILTER p._key == @postId\n" +
                     "    LIMIT 1\n" +
                     "    RETURN p\n" +
@@ -45,7 +45,7 @@ public class PostAPI {
                     "    FOR p IN comments\n" +
                     "    FILTER p.postId == @postId\n" +
                     "    SORT p.time DESC\n" +
-                    "    return MERGE(post, {\"displayName\": DOCUMENT(\"users\", p.userId).displayName})\n" +
+                    "    return MERGE(p, {\"displayName\": DOCUMENT(\"users\", p.userId).displayName})\n" +
                     ")\n" +
                     "\n" +
                     "FILTER post != null\n" +
