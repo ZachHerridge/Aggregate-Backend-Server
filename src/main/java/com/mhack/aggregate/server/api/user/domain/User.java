@@ -16,7 +16,7 @@ public class User {
         this.profile = profile;
     }
 
-    public String get_Key() {
+    public String getKey() {
         return _key;
     }
 

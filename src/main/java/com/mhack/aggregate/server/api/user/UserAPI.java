@@ -78,7 +78,7 @@ public class UserAPI {
             String password = req.queryParams("password");
             User userByDisplayName = getUserByDisplayName(displayName);
             if (userByDisplayName != null && userByDisplayName.getPassword().equals(password)) {
-                return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.get_Key();
+                return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.getKey();
             }
             return "FAIL";
         });
