@@ -44,7 +44,7 @@ public class PostAPI {
                     "    FOR p IN comments\n" +
                     "    FILTER p.postId == @postId\n" +
                     "    SORT p.time DESC\n" +
-                    "    RETURN p\n" +
+                    "    return MERGE(post, {\"displayName\": DOCUMENT(\"users\", p.userId).displayName})\n" +
                     ")\n" +
                     "\n" +
                     "FILTER post != null\n" +
