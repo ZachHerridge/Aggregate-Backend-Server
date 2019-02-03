@@ -1,19 +1,27 @@
 package com.mhack.aggregate.server.api.user.extra_variables;
 
 public class FarmEquipment {
-
-    private String name;
-    private int eqpId;
-
-    public FarmEquipment(String name) {
-        this.name = name;
+    enum Equipment {
+        Tractor,
+        Plow,
+        Harrow,
+        FertilizerSpreader,
+        Seeder,
+        Baler,
+        Harvester
     }
 
-    public String getName() {
-        return name;
+    private Equipment equipment;
+
+    public FarmEquipment(Equipment equipment) {
+        this.equipment = equipment;
     }
 
-    public void setString(String name) {
-        this.name = name;
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
     }
 }
