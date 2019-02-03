@@ -21,7 +21,7 @@ public class JwtUtil {
         try {
             return JWT.create()
                     .withIssuer("aggregate")
-                    .withClaim("userId", user.get_key())
+                    .withClaim("userId", user.getKey())
                     .withClaim("displayName", user.getDisplayName())
                     .sign(algorithm);
         } catch (JWTCreationException e) {

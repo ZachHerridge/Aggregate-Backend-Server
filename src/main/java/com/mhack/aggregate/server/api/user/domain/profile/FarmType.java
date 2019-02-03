@@ -1,21 +1,22 @@
-package com.mhack.aggregate.server.api.user.extra_variables;
+package com.mhack.aggregate.server.api.user.domain.profile;
 
-public class FarmType {
-
+class FarmType {
+    // Need more types obviously, but this is good for a start
     enum Type {
         Dairy,
-        Animal,
+        Livestock,
         Wheat,
         Corn,
         Cotton,
         Tobacco
     }
 
-    private Type type;
+    Type type;
 
     public FarmType(Type type) {
         this.type = type;
     }
+
 
     public Type getType() {
         return type;
@@ -24,5 +25,4 @@ public class FarmType {
     public void setType(Type type) {
         this.type = type;
     }
-
 }
