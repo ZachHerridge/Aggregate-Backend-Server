@@ -9,14 +9,16 @@ public class User {
     private String password;
     private Profile profile;
 
-    public User(String _key, String displayName, String password, Profile profile) {
-        this._key = _key;
+    public User(String displayName, String password) {
         this.displayName = displayName;
         this.password = password;
-        this.profile = profile;
     }
 
-    public String get_Key() {
+    public User() {
+
+    }
+
+    public String getKey() {
         return _key;
     }
 

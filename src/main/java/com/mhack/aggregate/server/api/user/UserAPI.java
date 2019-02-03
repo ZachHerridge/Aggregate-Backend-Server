@@ -47,6 +47,21 @@ public class UserAPI {
             return "FAIL";
         });
 
+
+        Spark.get("/register", (req, res) -> {
+            try {
+                String displayName = req.queryParams("displayName");
+                if (getUserByDisplayName(displayName) == null){
+                    users.insertDocument(new User(displayName, req.queryParams("password")));
+                    return "OK";
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                throw e;
+            }
+            return "FAIL";
+        });
+
         Spark.get("/user", (req, res) -> {
             try {
                 String userId = JwtUtil.decodeToId(req.headers("jwt"));
@@ -78,7 +93,7 @@ public class UserAPI {
             String password = req.queryParams("password");
             User userByDisplayName = getUserByDisplayName(displayName);
             if (userByDisplayName != null && userByDisplayName.getPassword().equals(password)) {
-                return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.get_Key();
+                return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.getKey();
             }
             return "FAIL";
         });
