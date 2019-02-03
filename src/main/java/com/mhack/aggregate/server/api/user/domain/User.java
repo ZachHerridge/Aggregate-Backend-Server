@@ -7,10 +7,16 @@ public class User {
     private String _key;
     private String displayName;
     private String password;
-
     private Profile profile;
 
-    public String getKey() {
+    public User(String _key, String displayName, String password, Profile profile) {
+        this._key = _key;
+        this.displayName = displayName;
+        this.password = password;
+        this.profile = profile;
+    }
+
+    public String get_Key() {
         return _key;
     }
 
@@ -22,12 +28,11 @@ public class User {
         return password;
     }
 
-    public User setProfile(Profile profile) {
-        this.profile = profile;
-        return this;
-    }
-
     public Profile getProfile() {
         return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
