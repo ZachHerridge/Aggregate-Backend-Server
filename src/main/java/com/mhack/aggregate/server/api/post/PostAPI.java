@@ -49,7 +49,7 @@ public class PostAPI {
                     "\n" +
                     "FILTER post != null\n" +
                     "\n" +
-                    "return MERGE(post, {\"comments\": comments})", Collections.singletonMap("postId", req.params("postId")), Post.class).next());
+                    "return MERGE(post, {\"comments\": comments}, {\"displayName\": DOCUMENT(\"users\", post.userId).displayName})", Collections.singletonMap("postId", req.params("postId")), Post.class).next());
 
         });
 
