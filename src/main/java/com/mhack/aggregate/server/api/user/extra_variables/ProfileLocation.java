@@ -8,16 +8,23 @@ public class ProfileLocation {
         USA
     }
 
+    enum State {
+        AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MI, MN
+    }
+
     private Country country;
+    private State state;
     private Point point;
 
     public ProfileLocation() {
         country = Country.USA;
+        state = State.MN;
         point = new Point(0,0);
     }
 
-    public ProfileLocation(Country country, Point point) {
+    public ProfileLocation(Country country, State state, Point point) {
         this.country = country;
+        this.state = state;
         this.point = point;
     }
 

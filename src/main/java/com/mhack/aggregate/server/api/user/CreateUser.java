@@ -10,6 +10,8 @@ public class CreateUser {
         this.user = user;
     }
 
+    public void pushToDatabase() {
 
+    }
 
 }
