@@ -5,6 +5,9 @@ import spark.Spark;
 public class UserAPI {
 
     public static void init(){
-        Spark.get("/hello", (req, res) -> "Hello World");
+        Spark.get("/user/:userid", (req, res) -> {
+            String userId = req.params("userid");
+            return "Hello user " + userId;
+        });
     }
 }
