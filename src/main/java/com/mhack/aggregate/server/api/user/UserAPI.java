@@ -89,11 +89,17 @@ public class UserAPI {
         });
 
         Spark.get("/login", (req, res) -> {
-            String displayName = req.queryParams("displayName");
-            String password = req.queryParams("password");
-            User userByDisplayName = getUserByDisplayName(displayName);
-            if (userByDisplayName != null && userByDisplayName.getPassword().equals(password)) {
-                return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.getKey();
+            try {
+
+                String displayName = req.queryParams("displayName");
+                String password = req.queryParams("password");
+                User userByDisplayName = getUserByDisplayName(displayName);
+                if (userByDisplayName != null && userByDisplayName.getPassword().equals(password)) {
+                    return "OK " + JwtUtil.create(userByDisplayName) + " " + userByDisplayName.getKey();
+                }
+            }
+            catch (Throwable e){
+                e.printStackTrace();
             }
             return "FAIL";
         });
