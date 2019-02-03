@@ -2,10 +2,18 @@ package com.mhack.aggregate.server.api.post.domain;
 
 public class Post {
 
+    private String _key;
     private String userId;
     private String title;
     private String body;
     private long time = System.currentTimeMillis();
+    private Comment[] comments;
+
+    public Post(String title, String body) {
+
+        this.title = title;
+        this.body = body;
+    }
 
     public Post setUserId(String userId) {
         this.userId = userId;
@@ -22,6 +30,10 @@ public class Post {
         return this;
     }
 
+    public Comment[] getComments() {
+        return comments;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -33,4 +45,9 @@ public class Post {
     public String getBody() {
         return body;
     }
+
+    public long getTime() {
+        return time;
+    }
 }
+

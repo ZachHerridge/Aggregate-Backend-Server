@@ -47,12 +47,24 @@ public class UserAPI {
             return "FAIL";
         });
 
+        Spark.get("/user", (req, res) -> {
+            try {
+                String userId = JwtUtil.decodeToId(req.headers("jwt"));
+                if (userId != null){
+                    return gson.toJson(getUserById(userId));
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                throw e;
+            }
+            return "FAIL";
+        });
+
         Spark.get("/user/profile", (req, res) -> {
             try {
                 String userId = JwtUtil.decodeToId(req.headers("jwt"));
                 if (userId != null){
-                    User document = getUserById(userId);
-                    return gson.toJson(document.getProfile());
+                    return gson.toJson(getUserById(userId).getProfile());
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
