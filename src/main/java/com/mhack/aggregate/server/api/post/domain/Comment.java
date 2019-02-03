@@ -8,6 +8,7 @@ public class Comment {
     private String userId;
     private String body;
     private long time = System.currentTimeMillis();
+    private String displayName;
 
     public String getKey() {
         return _key;
